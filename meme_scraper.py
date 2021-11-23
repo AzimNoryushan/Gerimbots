@@ -18,7 +18,7 @@ intents.members = True
 
 bot = commands.Bot(command_prefix='?', description='description', intents=intents)
 
-model = malaya.emotion.multinomial()
+#model = malaya.emotion.multinomial()
 
 @bot.event
 async def on_ready():
