@@ -123,9 +123,9 @@ async def on_message(message):
         channel = bot.get_channel(werewolf_general_channelId)
         analyze_text = str(message.content).strip('!analyze')
 
-        emotion = model.predict([analyze_text])
-        print("okay")
-        await channel.send(emotion)
+        # emotion = model.predict([analyze_text])
+        # print("okay")
+        # await channel.send(emotion)
 
 def getData(url):
     r = requests.get(url)
