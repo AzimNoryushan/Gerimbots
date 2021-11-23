@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 from discord.ext import commands
 import random
-import twint
+#import twint
 #from twint_service import twint_service
 import malaya
 
