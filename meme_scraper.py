@@ -9,7 +9,7 @@ import twint
 #from twint_service import twint_service
 import malaya
 
-TOKEN = "NzMyMjExNjczNzMzMjY3NTY2.XwxTQg.0YupVDaWehMBGKld91R6Pql5vCU"
+TOKEN = "NzMyMjExNjczNzMzMjY3NTY2.XwxTQg.AWrf0CLiDOhQSMMyAmF1yjvaonM"
 werewolf_general_channelId = 683682244434460784
 swuack_general__channelId = 713423084807520290
 
