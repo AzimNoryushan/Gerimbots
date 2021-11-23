@@ -1,4 +1,3 @@
 discord
 requests
 bs4
-malaya
