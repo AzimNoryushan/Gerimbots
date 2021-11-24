@@ -1,1 +1,1 @@
-worker: python meme_scrapper.py
+worker: python meme_scraper.py
