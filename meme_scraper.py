@@ -7,7 +7,7 @@ from discord.ext import commands
 import random
 #import twint
 #from twint_service import twint_service
-#import malaya
+import malaya
 
 TOKEN = "NzMyMjExNjczNzMzMjY3NTY2.XwxTQg.AWrf0CLiDOhQSMMyAmF1yjvaonM"
 werewolf_general_channelId = 683682244434460784
@@ -18,7 +18,7 @@ intents.members = True
 
 bot = commands.Bot(command_prefix='?', description='description', intents=intents)
 
-#model = malaya.emotion.multinomial()
+model = malaya.emotion.multinomial()
 
 @bot.event
 async def on_ready():
@@ -45,28 +45,28 @@ async def on_message(message):
 
     # Malaya is too big to use free heroku :(
 
-    # emotion = model.predict([message.content])
+    emotion = model.predict([message.content])
 
-    # print(emotion)
+    print(emotion)
     
-    # if emotion == ['love']:
-    #     await message.add_reaction(love_emoji)
-    # elif emotion == ['fear']:
-    #     await message.add_reaction(fear_emoji)
-    # elif emotion == ['happy']:
-    #     await message.add_reaction(happy_emoji)
-    # elif emotion == ['anger']:
-    #     await message.add_reaction(anger_emoji)
-    # elif emotion == ['sadness']:
-    #     await message.add_reaction(sad_emoji)
-    # elif emotion == ['surprise']:
-    #     await message.add_reaction(surprised_emoji)
-    # else:
-    #     await message.add_reaction(clown_emoji)
+    if emotion == ['love']:
+        await message.add_reaction(love_emoji)
+    elif emotion == ['fear']:
+        await message.add_reaction(fear_emoji)
+    elif emotion == ['happy']:
+        await message.add_reaction(happy_emoji)
+    elif emotion == ['anger']:
+        await message.add_reaction(anger_emoji)
+    elif emotion == ['sadness']:
+        await message.add_reaction(sad_emoji)
+    elif emotion == ['surprise']:
+        await message.add_reaction(surprised_emoji)
+    else:
+        await message.add_reaction(clown_emoji)
 
-    # with open("DISCORD_CONVERSATION(EMOTION).txt", "a+") as file_object:
-    #     # Append 'hello' at the end of file
-    #     file_object.write(message.content + "\t" + str(emotion) + "\n")
+    with open("DISCORD_CONVERSATION(EMOTION).txt", "a+") as file_object:
+        # Append 'hello' at the end of file
+        file_object.write(message.content + "\t" + str(emotion) + "\n")
         
 
     if '!meme' in message.content:
@@ -123,9 +123,9 @@ async def on_message(message):
         channel = bot.get_channel(werewolf_general_channelId)
         analyze_text = str(message.content).strip('!analyze')
 
-        # emotion = model.predict([analyze_text])
-        # print("okay")
-        # await channel.send(emotion)
+        emotion = model.predict([analyze_text])
+        print("okay")
+        await channel.send(emotion)
 
 def getData(url):
     r = requests.get(url)
