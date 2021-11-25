@@ -7,18 +7,21 @@ from discord.ext import commands
 import random
 #import twint
 #from twint_service import twint_service
-import malaya
+from emotion_detection import Emotion_detection
+from dotenv import load_dotenv
 
-TOKEN = "NzMyMjExNjczNzMzMjY3NTY2.XwxTQg.AWrf0CLiDOhQSMMyAmF1yjvaonM"
-werewolf_general_channelId = 683682244434460784
-swuack_general__channelId = 713423084807520290
+load_dotenv()
+
+#Gerimbots
+TOKEN = os.getenv('TOKEN')
+
+werewolf_general_channelId = os.getenv('WEREWOLF_CHANNEL_ID')
+swuack_general__channelId = os.getenv('SWUACK_CHANNEL_ID')
 
 intents = discord.Intents.default()
 intents.members = True
 
 bot = commands.Bot(command_prefix='?', description='description', intents=intents)
-
-model = malaya.emotion.multinomial()
 
 @bot.event
 async def on_ready():
@@ -27,7 +30,7 @@ async def on_ready():
 
 
 async def send_message(message='test'):
-    channel = bot.get_channel(683682244434460784)
+    channel = bot.get_channel(werewolf_general_channelId)
     await channel.send(message)
 
 @bot.event
@@ -41,11 +44,9 @@ async def on_message(message):
     sad_emoji = '\U0001F622'
     surprised_emoji = '\U0001F62E'
 
-    channel = bot.get_channel(werewolf_general_channelId)
+    channel = bot.get_channel(swuack_general__channelId)
 
-    # Malaya is too big to use free heroku :(
-
-    emotion = model.predict([message.content])
+    emotion = Emotion_detection().getEmotion([message.content])
 
     print(emotion)
     
@@ -100,11 +101,12 @@ async def on_message(message):
         
         for i in range(5):
             await channel.send(random.choice(hot_memes))
-
+    
+    # TODO Create better templates
     if '!help' in message.content:
         # Do stuff here
         channel = bot.get_channel(werewolf_general_channelId)
-        await channel.send("! meme for A meme\n! party for some memes\n! analyze using malaya emotion detection")
+        await channel.send("! meme for A meme\n! party for some memes\n")
 
     #TODO fix this shit
     if '!tweet' in message.content and len(str(message.content).split()) > 1:
@@ -116,16 +118,6 @@ async def on_message(message):
         print(twitInfo)
   
         await channel.send(twint_service())
-    
-    if '!analyze' in message.content and len(str(message.content).split()) > 1:
-        print('MALAYA ONZ')
-
-        channel = bot.get_channel(werewolf_general_channelId)
-        analyze_text = str(message.content).strip('!analyze')
-
-        emotion = model.predict([analyze_text])
-        print("okay")
-        await channel.send(emotion)
 
 def getData(url):
     r = requests.get(url)
