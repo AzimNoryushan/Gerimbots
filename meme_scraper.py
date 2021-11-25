@@ -69,8 +69,6 @@ async def on_message(message):
     if '!howdoi' in message.content:
 
         channel = bot.get_channel(swuack_general__channelId)
-        print(swuack_general__channelId)
-        print(channel)
         question = str(message.content).replace('!howdoi ', '')
         result = Hdi().execute(question)
 
