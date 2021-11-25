@@ -9,7 +9,7 @@ import random
 #from twint_service import twint_service
 from emotion_detection import Emotion_detection
 from dotenv import load_dotenv
-from howdoi import HowDoI
+from hdi import Hdi
 
 load_dotenv()
 
@@ -72,7 +72,7 @@ async def on_message(message):
         print(swuack_general__channelId)
         print(channel)
         question = str(message.content).replace('!howdoi ', '')
-        result = HowDoI().execute(question)
+        result = Hdi().execute(question)
 
         await channel.send(result)
 
