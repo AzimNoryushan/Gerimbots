@@ -9,14 +9,15 @@ import random
 #from twint_service import twint_service
 from emotion_detection import Emotion_detection
 from dotenv import load_dotenv
+from howdoi import HowDoI
 
 load_dotenv()
 
 #Gerimbots
 TOKEN = os.getenv('TOKEN')
 
-werewolf_general_channelId = os.getenv('WEREWOLF_CHANNEL_ID')
-swuack_general__channelId = os.getenv('SWUACK_CHANNEL_ID')
+werewolf_general_channelId = int(os.getenv('WEREWOLF_CHANNEL_ID'))
+swuack_general__channelId = int(os.getenv('SWUACK_CHANNEL_ID'))
 
 intents = discord.Intents.default()
 intents.members = True
@@ -63,14 +64,22 @@ async def on_message(message):
     elif emotion == ['surprise']:
         await message.add_reaction(surprised_emoji)
     else:
-        await message.add_reaction(clown_emoji)   
+        await message.add_reaction(clown_emoji)
+
+    if '!howdoi' in message.content:
+
+        channel = bot.get_channel(swuack_general__channelId)
+        print(swuack_general__channelId)
+        print(channel)
+        question = str(message.content).replace('!howdoi ', '')
+        result = HowDoI().execute(question)
+
+        await channel.send(result)
 
     if '!meme' in message.content:
         print('Someone asked for meme')
 
         # Do stuff here
-        await bot.wait_until_ready()
-        channel = bot.get_channel(werewolf_general_channelId)
         html_data = getData('https://www.memecenter.com/')
         soup = BeautifulSoup(html_data, 'html.parser')
 
@@ -86,7 +95,6 @@ async def on_message(message):
         print('Protocol party')
 
         # Do stuff here
-        channel = bot.get_channel(werewolf_general_channelId)
         html_data = getData('https://www.memecenter.com/')
         soup = BeautifulSoup(html_data, 'html.parser')
 
@@ -106,7 +114,6 @@ async def on_message(message):
 
     #TODO fix this shit
     if '!tweet' in message.content and len(str(message.content).split()) > 1:
-        channel = bot.get_channel(swuack_general__channelId)
         message = str(message.content).split()
         username = message[1]
 
