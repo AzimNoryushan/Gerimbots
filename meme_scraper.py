@@ -69,6 +69,7 @@ async def on_message(message):
         print('Someone asked for meme')
 
         # Do stuff here
+        await bot.wait_until_ready()
         channel = bot.get_channel(werewolf_general_channelId)
         html_data = getData('https://www.memecenter.com/')
         soup = BeautifulSoup(html_data, 'html.parser')
