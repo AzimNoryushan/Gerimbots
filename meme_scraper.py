@@ -17,7 +17,7 @@ load_dotenv()
 TOKEN = os.getenv('TOKEN')
 
 werewolf_general_channelId = int(os.getenv('WEREWOLF_CHANNEL_ID'))
-swuack_general__channelId = int(os.getenv('SWUACK_CHANNEL_ID'))
+swuack_general_channelId = int(os.getenv('SWUACK_CHANNEL_ID'))
 
 intents = discord.Intents.default()
 intents.members = True
@@ -46,25 +46,25 @@ async def on_message(message):
     surprised_emoji = '\U0001F62E'
 
     channel = bot.get_channel(werewolf_general_channelId)
+    if not message.author.bot:
+        emotion = Emotion_detection().getEmotion([message.content])
 
-    emotion = Emotion_detection().getEmotion([message.content])
-
-    print(emotion)
-    
-    if emotion == ['love']:
-        await message.add_reaction(love_emoji)
-    elif emotion == ['fear']:
-        await message.add_reaction(fear_emoji)
-    elif emotion == ['happy']:
-        await message.add_reaction(happy_emoji)
-    elif emotion == ['anger']:
-        await message.add_reaction(anger_emoji)
-    elif emotion == ['sadness']:
-        await message.add_reaction(sad_emoji)
-    elif emotion == ['surprise']:
-        await message.add_reaction(surprised_emoji)
-    else:
-        await message.add_reaction(clown_emoji)
+        print(emotion)
+        
+        if emotion == ['love']:
+            await message.add_reaction(love_emoji)
+        elif emotion == ['fear']:
+            await message.add_reaction(fear_emoji)
+        elif emotion == ['happy']:
+            await message.add_reaction(happy_emoji)
+        elif emotion == ['anger']:
+            await message.add_reaction(anger_emoji)
+        elif emotion == ['sadness']:
+            await message.add_reaction(sad_emoji)
+        elif emotion == ['surprise']:
+            await message.add_reaction(surprised_emoji)
+        else:
+            await message.add_reaction(clown_emoji)
 
     if '!howdoi' in message.content:
 
