@@ -63,12 +63,7 @@ async def on_message(message):
     elif emotion == ['surprise']:
         await message.add_reaction(surprised_emoji)
     else:
-        await message.add_reaction(clown_emoji)
-
-    with open("DISCORD_CONVERSATION(EMOTION).txt", "a+") as file_object:
-        # Append 'hello' at the end of file
-        file_object.write(message.content + "\t" + str(emotion) + "\n")
-        
+        await message.add_reaction(clown_emoji)   
 
     if '!meme' in message.content:
         print('Someone asked for meme')

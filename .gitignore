@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 #Ignore log file
-DISCORD_CONVERSATION(EMOTION).txt
+DISCORD_CONVERSATION.txt
