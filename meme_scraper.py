@@ -44,7 +44,7 @@ async def on_message(message):
     sad_emoji = '\U0001F622'
     surprised_emoji = '\U0001F62E'
 
-    channel = bot.get_channel(swuack_general__channelId)
+    channel = bot.get_channel(werewolf_general_channelId)
 
     emotion = Emotion_detection().getEmotion([message.content])
 
