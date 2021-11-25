@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#Ignore log file
+DISCORD_CONVERSATION(EMOTION).txt
