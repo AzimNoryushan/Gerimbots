@@ -16,23 +16,15 @@ load_dotenv()
 #Gerimbots
 TOKEN = os.getenv('TOKEN')
 
-werewolf_general_channelId = int(os.getenv('WEREWOLF_CHANNEL_ID'))
-swuack_general_channelId = int(os.getenv('SWUACK_CHANNEL_ID'))
-
 intents = discord.Intents.default()
 intents.members = True
 
-bot = commands.Bot(command_prefix='?', description='description', intents=intents)
+bot = commands.Bot(command_prefix='!', description='description', intents=intents)
 
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user} (ID: {bot.user.id})')
     print('------')
-
-
-async def send_message(message='test'):
-    channel = bot.get_channel(werewolf_general_channelId)
-    await channel.send(message)
 
 @bot.event
 async def on_message(message):
@@ -45,7 +37,9 @@ async def on_message(message):
     sad_emoji = '\U0001F622'
     surprised_emoji = '\U0001F62E'
 
-    channel = bot.get_channel(werewolf_general_channelId)
+    await bot.process_commands(message)
+    
+    # TODO initialize Malaya so that deployment will be faster
     if not message.author.bot:
         emotion = Emotion_detection().getEmotion([message.content])
 
@@ -66,59 +60,15 @@ async def on_message(message):
         else:
             await message.add_reaction(clown_emoji)
 
-    if '!howdoi' in message.content:
+@bot.command(name='hdi')
+async def hdi(ctx, *, question):
+    result = Hdi().execute(question)
 
-        channel = bot.get_channel(werewolf_general_channelId)
-        question = str(message.content).replace('!howdoi ', '')
-        result = Hdi().execute(question)
+    await ctx.send(result)
 
-        await channel.send(result)
-
-    if '!meme' in message.content:
-        print('Someone asked for meme')
-
-        # Do stuff here
-        html_data = getData('https://www.memecenter.com/')
-        soup = BeautifulSoup(html_data, 'html.parser')
-
-        #TODO revisit algorithm
-        hot_memes = []
-
-        for item in soup.find_all('img'):
-            hot_memes.append(item['src'])
-
-        await channel.send(random.choice(hot_memes))
-
-    if '!party' in message.content:
-        print('Protocol party')
-
-        # Do stuff here
-        html_data = getData('https://www.memecenter.com/')
-        soup = BeautifulSoup(html_data, 'html.parser')
-
-        hot_memes = []
-
-        for item in soup.find_all('img'):
-            hot_memes.append(item['src'])
-        
-        for i in range(5):
-            await channel.send(random.choice(hot_memes))
-    
-    # TODO Create better templates
-    if '!help' in message.content:
-        # Do stuff here
-        channel = bot.get_channel(werewolf_general_channelId)
-        await channel.send("! meme for A meme\n! party for some memes\n")
-
-    #TODO fix this shit
-    if '!tweet' in message.content and len(str(message.content).split()) > 1:
-        message = str(message.content).split()
-        username = message[1]
-
-        twitInfo = twint_service()
-        print(twitInfo)
-  
-        await channel.send(twint_service())
+@bot.command()
+async def test(ctx, args1):
+    await ctx.send(args1)
 
 def getData(url):
     r = requests.get(url)
