@@ -10,6 +10,7 @@ import random
 from emotion_detection import Emotion_detection
 from dotenv import load_dotenv
 from hdi import Hdi
+from topic_sentiment import Topic_sentiment
 
 load_dotenv()
 
@@ -63,6 +64,12 @@ async def on_message(message):
 @bot.command(name='hdi')
 async def hdi(ctx, *, question):
     result = Hdi().execute(question)
+
+    await ctx.send(result)
+
+@bot.command(name='analyze')
+async def analyze(ctx, *, topic):
+    result = Topic_sentiment().analyze_tweet(topic)
 
     await ctx.send(result)
 
