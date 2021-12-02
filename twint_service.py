@@ -1,8 +1,5 @@
 import twint
-import re
 import traceback
-import pandas
-import json
 
 class Twint_service:
 
@@ -15,7 +12,7 @@ class Twint_service:
             config = twint.Config()
             config.Hide_output = True
             config.Search = topic
-            config.Limit = 10
+            config.Limit = 500
             config.Pandas = True
 
             twint.run.Search(config)
@@ -24,5 +21,5 @@ class Twint_service:
             tweet_to_dict = tweet_df.to_dict('records')
 
             return tweet_to_dict
-        except Exception as e:
+        except:
             traceback.print_exc

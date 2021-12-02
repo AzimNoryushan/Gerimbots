@@ -7,10 +7,6 @@ class Topic_sentiment():
 
     def __init__(self):
         self.topic = ""
-        # self.positive_results = 0
-        # self.negative_results = 0
-        # self.neutral_results = 0
-        # self.undetected_results = 0
 
     def listToString(self, list):
         string = str(list).replace(' ', '')
@@ -43,9 +39,9 @@ class Topic_sentiment():
             except:
                 print(traceback.print_exc())
 
-        self.generate_chart(positive_results, negative_results, neutral_results)
+        #self.generate_chart(positive_results, negative_results, neutral_results)
 
-        return positive_results, negative_results, neutral_results
+        return "Positive: " + str(positive_results) + " Negative: " + str(negative_results) + " Neutral: " + str(negative_results)
 
     def generate_chart(self, positive_results, negative_results, neutral_results):
         try:

@@ -2,9 +2,7 @@ import os
 import discord
 from discord import channel
 import requests
-from bs4 import BeautifulSoup
 from discord.ext import commands
-import random
 from emotion_detection import Emotion_detection
 from dotenv import load_dotenv
 from hdi import Hdi
@@ -68,6 +66,7 @@ async def hdi(ctx, *, question):
 @bot.command(name='analyze')
 async def analyze(ctx, *, topic):
     result = Topic_sentiment().analyze_tweet(topic)
+    print(result)
 
     await ctx.send(result)
 
