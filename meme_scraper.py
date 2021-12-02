@@ -93,10 +93,10 @@ async def hdi(ctx, *, question):
 
 @bot.command(name='analyze')
 async def analyze(ctx, *, topic):
-    result = analyze_tweet(topic)
-    print(result)
+    #result = analyze_tweet(topic)
+    #print(result)
 
-    await ctx.send(result)
+    await ctx.send(topic)
 
 @bot.command()
 async def test(ctx, args1):
