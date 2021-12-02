@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import traceback
 from sentiment_detection import Sentiment_detection
 from twint_service import Twint_service
+from datetime import date
+import time
 
 class Topic_sentiment():
 
@@ -25,6 +27,8 @@ class Topic_sentiment():
 
         tweets = Twint_service().getTweets(topic)
 
+        time.sleep(120)
+
         for tweet in tweets:
             try:
                 sentiment = self.listToString(Sentiment_detection().getSentiment([tweet['tweet']]))
@@ -39,18 +43,21 @@ class Topic_sentiment():
             except:
                 print(traceback.print_exc())
 
-        #self.generate_chart(positive_results, negative_results, neutral_results)
+        self.generate_chart(positive_results, negative_results, neutral_results, topic)
 
         return "Positive: " + str(positive_results) + " Negative: " + str(negative_results) + " Neutral: " + str(negative_results)
 
-    def generate_chart(self, positive_results, negative_results, neutral_results):
+    def generate_chart(self, positive_results, negative_results, neutral_results, topic):
         try:
+            today = date.today()
             fig = plt.figure()
             ax = fig.add_axes([0,0,1,1])
             ax.axis('equal')
             sentiment_list = ['positive', 'negative', 'neutral']
             data_count = [positive_results, negative_results, neutral_results]
-            ax.pie(data_count, labels = sentiment_list,autopct='%1.2f%%')
-            plt.savefig('img/plot2.png', dpi=300, bbox_inches='tight')
+            colors = ['green', "red", "blue"]
+            ax.pie(data_count, labels = sentiment_list,autopct='%1.2f%%',colors=colors)
+            plt.title("Sentiment of " + topic + " in Twitter on " +  today.strftime("%d/%m/%Y"))
+            plt.savefig('img/plot3.png', dpi=300, bbox_inches='tight')
         except:
             print(traceback.print_exc())
