@@ -21,7 +21,7 @@ intents.members = True
 
 bot = commands.Bot(command_prefix='!', description='description', intents=intents)
 
-def analyze_tweet(self, topic):
+def analyze_tweet(topic):
 
         positive_results = 0
         negative_results = 0
@@ -93,8 +93,8 @@ async def hdi(ctx, *, question):
 
 @bot.command(name='analyze')
 async def analyze(ctx, *, topic):
-    #result = analyze_tweet(topic)
-    #print(result)
+    result = analyze_tweet(topic)
+    print(result)
 
     await ctx.send(topic)
 
