@@ -44,8 +44,6 @@ def analyze_tweet(self, topic):
             except:
                 print(traceback.print_exc())
 
-        self.generate_chart(positive_results, negative_results, neutral_results, topic)
-
         return "Positive: " + str(positive_results) + " Negative: " + str(negative_results) + " Neutral: " + str(negative_results)
 
 @bot.event
