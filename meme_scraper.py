@@ -7,6 +7,9 @@ from emotion_detection import Emotion_detection
 from dotenv import load_dotenv
 from hdi import Hdi
 from topic_sentiment import Topic_sentiment
+from sentiment_detection import Sentiment_detection
+from twint_service import Twint_service
+import traceback
 
 load_dotenv()
 
@@ -17,6 +20,33 @@ intents = discord.Intents.default()
 intents.members = True
 
 bot = commands.Bot(command_prefix='!', description='description', intents=intents)
+
+def analyze_tweet(self, topic):
+
+        positive_results = 0
+        negative_results = 0
+        neutral_results = 0
+        undetected_results = 0
+
+        tweets = Twint_service().getTweets(topic)
+
+        for tweet in tweets:
+            try:
+                sentiment = self.listToString(Sentiment_detection().getSentiment([tweet['tweet']]))
+                if(sentiment=='positive'):
+                    positive_results = positive_results+1
+                elif(sentiment=='negative'):
+                    negative_results = negative_results+1
+                elif(sentiment=='neutral'):
+                    neutral_results = neutral_results+1
+                else:
+                    undetected_results = undetected_results+1
+            except:
+                print(traceback.print_exc())
+
+        self.generate_chart(positive_results, negative_results, neutral_results, topic)
+
+        return "Positive: " + str(positive_results) + " Negative: " + str(negative_results) + " Neutral: " + str(negative_results)
 
 @bot.event
 async def on_ready():
@@ -65,7 +95,7 @@ async def hdi(ctx, *, question):
 
 @bot.command(name='analyze')
 async def analyze(ctx, *, topic):
-    result = Topic_sentiment().analyze_tweet(topic)
+    result = analyze_tweet(topic)
     print(result)
 
     await ctx.send(result)
