@@ -12,7 +12,7 @@ class Twint_service:
             config = twint.Config()
             config.Hide_output = True
             config.Search = topic
-            config.Limit = 500
+            config.Limit = 100
             config.Pandas = True
 
             twint.run.Search(config)

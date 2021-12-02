@@ -27,7 +27,7 @@ class Topic_sentiment():
 
         tweets = Twint_service().getTweets(topic)
 
-        time.sleep(120)
+        time.sleep(20)
 
         for tweet in tweets:
             try:
