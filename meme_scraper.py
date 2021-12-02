@@ -5,8 +5,6 @@ import requests
 from bs4 import BeautifulSoup
 from discord.ext import commands
 import random
-#import twint
-#from twint_service import twint_service
 from emotion_detection import Emotion_detection
 from dotenv import load_dotenv
 from hdi import Hdi
