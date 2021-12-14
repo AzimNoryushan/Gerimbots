@@ -45,7 +45,7 @@ class Topic_sentiment():
 
         self.generate_chart(positive_results, negative_results, neutral_results, topic)
 
-        return "Positive: " + str(positive_results) + " Negative: " + str(negative_results) + " Neutral: " + str(negative_results)
+        return "Positive: " + str(positive_results) + " Negative: " + str(negative_results) + " Neutral: " + str(neutral_results)
 
     def generate_chart(self, positive_results, negative_results, neutral_results, topic):
         try:
