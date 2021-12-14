@@ -1,1 +1,1 @@
-worker: python meme_scraper.py
+worker: python main.py
